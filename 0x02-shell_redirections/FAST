@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# prompt user for a filename
+read -p "Enter a filename: " filename
+
+# open the file in Emacs
+emacs "$filename"
+
+# make the file executable
+chmod +x "$filename"
+
+# add the file to git
+git add "$filename"
+
+# commit the changes with a prompt for a commit message
+read -p "Enter commit message: " message
+git commit -m "$message"
+
+# push the changes
+git push
