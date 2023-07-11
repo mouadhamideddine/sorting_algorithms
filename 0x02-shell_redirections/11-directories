@@ -1,2 +1,2 @@
 #!/bin/bash
-echo "$(ls -lRa | grep -v "^d" | grep -v "^.." | wc -l)"
+find . -type d -not -path '*/\.*' -mindepth 1 | printf '%s\n' | wc -l
