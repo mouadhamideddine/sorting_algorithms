@@ -1,2 +1,2 @@
 #!/bin/bash
-ls -Ra | grep -c "/"
+ls -lRa | grep -c "/"
