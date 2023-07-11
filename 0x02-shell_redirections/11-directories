@@ -1,2 +1,2 @@
 #!/bin/bash
-ls -lRa | grep -c "/"
+echo "$(ls -lRa | grep -v "^d" | grep -v "^.." | wc -l)"
