@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# prompt user for a filename
+read -p "Enter a filename: " filename
+
+# open the file in Emacs
+emacs "$filename"
+
+# make the file executable
+chmod +x "$filename"
