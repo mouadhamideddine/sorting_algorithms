@@ -1,82 +1,48 @@
 #include "sort.h"
-/**
- * forward_list - moves forward in a list
- * @list : list
- * Return: None
-*/
-listint_t *forward_list(const listint_t *list)
-{
-    while (list)
-    {
-        list = list->next;
-    }
-}
-/**
- * backward_list - moves backwards in a list part of insert sort algrorithm
- * checks if prev_num > current_num if so it swaps places for ascending order list
- * @list : list
- * Return: pointer to node working with
-*/
-listint_t *backward_list(listint_t **list)
-{
-    listint_t *current, *prev_node, *next_node;
-    int prev_num;
-    int current_num;
-    current = *list;
 
-    while(current != NULL && current->prev != NULL)
-    {
-    current_num = current->n;
-    prev_num = current->prev->n;
-    if (prev_num > current_num)
-    {
-        prev_node = current->prev;
-        next_node = current->next;
-        current->next = prev_node;
-        current->prev = prev_node->prev;
-        prev_node->next = next_node;
-        if (prev_node->prev != NULL)
-        {
-            prev_node->prev->next = current;
-            prev_node->prev = current;
-        }
-        if (prev_node->prev == NULL)
-        {
-            prev_node->prev = current;
-            return (current);
-        }
-    }
-    else
-    {
-        return (current);
-    }
-    }
+/**
+ * swap_nodes - Swap two nodes in a listint_t doubly-linked list.
+ * @head: A pointer to the head of the doubly-linked list.
+ * @node1: A pointer to the first node to swap.
+ * @node2: The second node to swap.
+ */
+void swap_nodes(listint_t **head, listint_t **node1, listint_t *node2)
+{
+	(*node1)->next = node2->next;
+	if (node2->next != NULL)
+		node2->next->prev = *node1;
+	node2->prev = (*node1)->prev;
+	node2->next = *node1;
+	if ((*node1)->prev != NULL)
+		(*node1)->prev->next = node2;
+	else
+		*head = node2;
+	(*node1)->prev = node2;
+	*node1 = node2->prev;
 }
+
 /**
-/* insertion sort list algorithm*/
-/**
- * insertion_sort_list - sorts a doubly linked list of integers in 
- * ascending order using the Insertion sort algorithm
- * list: list
- * Return: Nothing
-*/
+ * insertion_sort_list - Sorts a doubly linked list of integers
+ *                       using the insertion sort algorithm.
+ * @list: A pointer to the head of a doubly-linked list of integers.
+ *
+ * Description: Prints the list after each swap.
+ */
 void insertion_sort_list(listint_t **list)
 {
-    listint_t *current;
-    listint_t *current_test;
+	listint_t *current, *insertion_point, *tmp;
 
-    if ( *list == NULL  || (*list)->next == NULL)
-    {
-        exit();
-    }
-    current = *list;
-    while(current != NULL)
-    {
-        current = current->next;
-        current_test = backward_list(&current);
-        if (current_test->prev == NULL)
-        {
-            current = current_test;
-        }
-    }
+	if (list == NULL || *list == NULL || (*list)->next == NULL)
+		return;
+
+	for (current = (*list)->next; current != NULL; current = tmp)
+	{
+		tmp = current->next;
+		insertion_point = current->prev;
+		while (insertion_point != NULL && current->n < insertion_point->n)
+		{
+			swap_nodes(list, &insertion_point, current);
+			print_list(*list);
+		}
+	}
 }
