@@ -34,6 +34,14 @@ int pass_array(int *array, size_t pivot_index, size_t size)
     }
     return (0);
 }
+void sortArray(int arr[]) {
+    if (arr[0] > arr[1]) {
+        int temp = arr[0];
+        arr[0] = arr[1];
+        arr[1] = temp;
+        print_array(arr, 2);
+    }
+}
 /**
  * quick_sort - quick sort algo
  * @array: int
@@ -47,6 +55,18 @@ void quick_sort(int *array, size_t size)
     size_t while_counter = 0;
 
     pivot_index = size - 1;
+    if (!array)
+    {
+        return;
+    }
+    if (size == 2)
+    {
+        sortArray(array);
+    }
+    if (size == 1)
+    {
+        return;
+    }
     while(pivot_index > 0)
     {
         change_pivot = pass_array(array, pivot_index, size);
