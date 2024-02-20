@@ -57,15 +57,16 @@ void quick_sort(int *array, size_t size)
     pivot_index = size - 1;
     if (!array)
     {
-        return;
+        pivot_index = 0;
     }
     if (size == 2)
     {
+        pivot_index = 0;
         sortArray(array);
     }
     if (size == 1)
     {
-        return;
+        pivot_index = 0;
     }
     while(pivot_index > 0)
     {
