@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Clock
-hours=1
+hours=0
 minutes=0
 while [ $hours -le 12 ];do
 	echo "Hour: $hours"
